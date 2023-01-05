@@ -7,7 +7,7 @@ import icon from "../images/emoji.svg";
 import styles from "../styles/Chat.module.css";
 import { Messages } from "./Messages";
 
-const socket = io.connect("http://localhost:5010");
+const socket = io.connect("https://chatroom-backend-u4pi.onrender.com");
 
 export const Chat = () => {
   const [state, setState] = useState([]);
