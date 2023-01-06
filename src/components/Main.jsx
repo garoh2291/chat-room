@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/Main.module.css";
 import { Link } from "react-router-dom";
+import io from "socket.io-client";
 
 const FIELDS = {
   NAME: "name",
   ROOM: "room",
 };
+
+const socket = io.connect("http://localhost:5010");
 
 export const Main = () => {
   const { NAME, ROOM } = FIELDS;
@@ -13,6 +16,16 @@ export const Main = () => {
     [NAME]: "",
     [ROOM]: "",
   });
+
+  useEffect(() => {
+    socket.emit("join", { name: "", room: "" });
+  }, []);
+
+  useEffect(() => {
+    socket.on("rooms", ({ data }) => {
+      console.log(data);
+    });
+  }, []);
 
   const handleChange = ({ target: { value, name } }) => {
     setValues({ ...values, [name]: value });

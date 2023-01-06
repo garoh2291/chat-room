@@ -7,7 +7,7 @@ import icon from "../images/emoji.svg";
 import styles from "../styles/Chat.module.css";
 import { Messages } from "./Messages";
 
-const socket = io.connect("https://chatroom-backend-u4pi.onrender.com");
+const socket = io.connect("http://localhost:5010");
 
 export const Chat = () => {
   const [state, setState] = useState([]);
@@ -27,6 +27,12 @@ export const Chat = () => {
   useEffect(() => {
     socket.on("message", ({ data }) => {
       setState((prev) => [...prev, data]);
+    });
+  }, []);
+
+  useEffect(() => {
+    socket.on("rooms", ({ data }) => {
+      console.log(data);
     });
   }, []);
 
